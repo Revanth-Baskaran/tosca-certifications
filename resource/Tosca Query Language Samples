@@ -1,0 +1,191 @@
+Below queries are example solutions taken from Tricentis website.
+
+TQL Step by Step URL : https://documentation.tricentis.com/tosca/1400/en/content/articles/tql_step_by_step.htm#Exampleswithexplanation
+Example TQL Solutions URL : https://documentation.tricentis.com/tosca/1400/en/content/tosca_commander/tql_examples.htm
+==============================================================================================================================================
+Query for objects with a specific value in their Value:
+Solution Description:
+This query searches one level below the selected element for all objects whose Value contains letter, number or both values.
+
+Solution:
+->SUBPARTS:OwnedItem['<ANY>'=="letter" OR '<ANY>'=="number"]
+==============================================================================================================================================
+Query for all TestCases whose test configuration parameter contains a specific value. Inherited values should be considered in the search:
+Solution Description:
+This query searches all levels beneath the selected element for all TestCases which contain a test configuration parameter Browser having the value InternetExplorer.
+
+Solution:
+=>SUBPARTS:TestCase[EVALCP("Browser") == "InternetExplorer"]
+
+Query for all TestCases which contain an initially created test configuration parameter of a specific value. Inherited values should not be considered in the search:
+Solution Description:
+This query searches all levels beneath the selected element for all TestCases which contain an initially created test configuration parameter Browser having the value InternetExplorer.
+
+Solution:
+=>SUBPARTS:TestCase[Browser == "InternetExplorer"]
+==============================================================================================================================================
+Query for searching testcases by their name For Eg - Data Source Excel :
+=>SUBPARTS:TestCase[Name=="Data Source Excel"]
+
+Query for All TestCases with the name Data Source Excel, which are located exactly 3 levels below the TestCases folder.
+->SUBPARTS->SUBPARTS->SUBPARTS:TestCase[Name=="Data Source Excel"]
+
+Query for all TestCases that do not contain the name Data Source Excel:
+=>SUBPARTS:TestCase[Name!="Data Source Excel"]
+
+Substring:
+Query for all TestCases that have Truck in their names:
+=>SUBPARTS:TestCase[Name=?"Truck"]
+
+Regex:
+Query for all TestCases with a name beginning with automobile.
+=>SUBPARTS:TestCase[Name=~"^automobile"]
+==============================================================================================================================================
+
+Query for all TestCases that contain a TestStepValue with the value Motorcycle:
+First, all TestStepValues with the corresponding value are searched for. Since TestCases are being searched, the parent object must be addressed on all levels using "=>SUPERPART."
+
+=>SUBPARTS:TestStepValue[Value=="Motorcycle"]=>SUPERPART:TestCase
+
+To return objects:
+=>RETURN SUBPARTS:TestCase=>SUBPARTS:TestStepValue[Value=="Motorcycle"]
+=======================================================================================================================================================================
+Query for all TestCases that are templates:
+=>SUBPARTS:TestCase[IsTemplate=i="true"]
+
+Note : The operator =i= stands for a comparison that is not case sensitive.
+
+Query for all TestCases that are templates and have the TestCase name Truck 01:
+=>SUBPARTS:TestCase[(IsTemplate=="True") AND (Name=="Truck 01")]
+=======================================================================================================================================================================
+Revoke the checkout of OwnedItems (ExecutionLists, ExecutionLogs) of a specific user only:
+
+Return the OwnedItems (ExecutionLists, ExecutionLogs) of a specific user only:
+=>RETURN SUBPARTS:OwnedItems[CheckOutState=="CheckedOut"]->LockedBy[Name=="samuel_smith"]
+=======================================================================================================================================================================
+Query for all TestCases that use the Module Vehicle data:
+Solution description:
+First, all Modules of the name Vehicle data are searched. The second ArrowOperator points to all referenced objects (TestSteps, ModuleAttributes, the ObjectMap, Folder and User). Only the TestSteps are relevant for this task, as they are linked explicitly to the searched TestCases. These superior elements are accessed with "=>SUPERPART:TestCase".
+
+Solution 1:
+=>SUBPARTS:Module[Name=="Vehicle data"]
+=>AllReferences=>SUPERPART:TestCase
+
+Solution 2 : 
+=>SUBPARTS:Module[Name=="Vehicle data"]->TestSteps=>SUPERPART:TestCase
+
+
+Query for all TestCases that use Module1 and/or Module2:
+Solution description:
+A set union can be used to search for all TestCases which use at least one Module specified in the search query.
+
+->UNION(=>return SUBPARTS:TestCase=>SUBPARTS:TestStep->Module[Name=="Module1"],=>return SUBPARTS:TestCase=>SUBPARTS:TestStep->Module[Name=="Module2"]
+=======================================================================================================================================================================
+Query for all XModules:
+=>SUBPARTS:XModules
+=======================================================================================================================================================================
+Query to find out whether there are Modules which are not assigned to any TestCase:
+Solution Description:
+All Modules beneath the selected element are searched by using =>SUBPARTS:Module.
+The expression [COUNT("TestSteps")==0] is used to search for all Modules which are not linked to any TestSteps.
+
+Solution:
+=>SUBPARTS:Module[COUNT("TestSteps")==0]
+=======================================================================================================================================================================
+Query for a user defined property For Eg - TestProp1, TestProp2, TestProp3:
+Solution 1 Description:
+The starting point of this search is the TestCases folder.
+
+=>SUBPARTS:TestCase[TestProp1=i="test-01"]
+
+Solution 2 Description:
+The starting point of this search is the project root element.
+
+=>SUBPARTS:TCFolder[TestProp2=i="test-02"]
+
+Solution 3 Description:
+The starting point of this search is the Modules folder .
+
+=>SUBPARTS:Module[TestProp3=i="test-03"]
+=======================================================================================================================================================================
+Query for the TechnicalID TechnicalID=YearOfConstruction:
+=>SUBPARTS[TechnicalId=="ID=YearOfConstruction"]
+
+Query for Parent Modules of TechnicalID to be found:
+Solution Description:
+The starting point of this search is the Modules folder. The expression is completed with =>SUPERPART:Module
+
+=>SUBPARTS[TechnicalId=="ID=select_YearOfConstruction"]=>SUPERPART:Module
+
+Query for TechnicalIDs of Modules. This TechnicalID is located under the ObjectMap:
+Solution Description:
+The starting point of this search is the Modules folder.
+
+=>SUBPARTS:ObjectMap[TechnicalId=="Caption=TRICENTIS Vehicle insurance calculator*"]
+
+Query  for TechnicalIDs of ModuleAttributes. This TechnicalID is located under the ObjectControl:
+Solution Description:
+The starting point of this search is the Modules folder.
+
+=>SUBPARTS:ObjectControl[TechnicalId=="ID=edit_price"]
+=======================================================================================================================================================================
+Query for all Modules, which have not yet been used in TestCases:
+Solution Description:
+COMPLEMENT allows a complementary set to be searched. The first query searches all Modules, while the second searches all Modules used in TestCases. The complementary set of these two queries contains all Modules, which are not yet used in a TestCase.The starting point of this search is the Modules folder.
+
+=>COMPLEMENT(=>SUBPARTS:Module,=>RETURN SUBPARTs:Module->TestSteps)
+=======================================================================================================================================================================
+Query for all TestCases, which have not been linked to Requirements yet. (The Tosca Requirements Management AddIn is required for the search.):
+Solution Description:
+COMPLEMENT allows a complementary set to be searched. The first query searches all TestCases, while the second searches all TestCases containing a RequirementTestCaseLink. The complementary set of these two queries contains all TestCases, which have not been linked to Requirement yet. TestedBy is used for directly referencing to the TestCases.The starting point of this search is the project root element.
+
+=>COMPLEMENT(=>SUBPARTS:TestCase, =>SUBPARTS:RequirementTestCaseLink->TestedBy)
+=======================================================================================================================================================================
+Query for all TestCases, which have not been assigned to an ExecutionList yet:
+Solution Description:
+COMPLEMENT allows a complementary set to be searched. The first query searches all TestCases, while the second searches all TestCases that are linked to an ExecutionEntry. The complementary set of these two queries contains all TestCases, which do not yet have any ExecutionEntry defined.The starting point of this search is the TestCases folder.
+
+=>COMPLEMENT(=>SUBPARTS:TestCase, =>RETURN SUBPARTS:TestCase->ExecutionEntries)
+=======================================================================================================================================================================
+Query for all ExecutionEntries, whose execution state has changed from Passed to Failed between two test executions:
+Solution Description:
+
+The search returns all subelements of an ExecutionEntry, which point to an element that is defined by INTERSECTION.
+INTERSECTION means the intersection of three partial results:
+
+1) Set of all TestCases
+2) Set of all TestCases, which are marked as Failed in the ActualLog
+3) Set of all TestCases, which are marked as Passed in the ExecutionLog Run1
+
+The expression =>SUPERPART is used to move from ExecutionEntries to ExecutionLists.
+The search returns all TestCases, which are marked as Failed in the ActualLog, but were previously Passed when Run1 was executed. The reversed search may be useful in a different context.
+
+A similar search allows TestCases to be searched in the ActualLog, which have not yet been executed, but which have a result in log Run1.
+=>return SUBPARTS:ExecutionEntry->INTERSECTION(
+->TestCase,
+=>SUPERPART:ExecutionList->ExecutionLogs[Name == "ActualLog"]
+->TestCaseLogs[(Result != "Failed") AND (Result != "Passed")]->ExecutedTestCase,
+=>SUPERPART:ExecutionList->ExecutionLogs[Name == "Run1"]
+->TestCaseLogs[(Result == "Passed") OR (Result == "Failed")]->ExecutedTestCase
+)
+
+Solution:
+The starting point of this search is the ExecutionLists folder.
+=>return SUBPARTS:ExecutionEntry->INTERSECTION(
+->TestCase,
+=>SUPERPART:ExecutionList->ExecutionLogs[Name == "ActualLog"]->TestCaseLogs[Result == "Failed"]->ExecutedTestCase,=>SUPERPART:ExecutionList->ExecutionLogs[Name == "Run1"]->TestCaseLogs[Result == "Passed"]->ExecutedTestCase
+)
+=======================================================================================================================================================================
+Query for TestCases which are linked to requirements, but do not yet have an ExecutionEntry in an ExecutionList:
+Solution Description:
+The command COMPLEMENT is used to search for a complementary set.The first query starts from the project root element and searches recursively for requirements which exist in a RequirementSet RS and are linked to TestCases.The second query also starts from the project root element and searches for ExecutionLists that are linked to a RequirementSet RS. The search returns all TestCases that are linked to an ExecutionEntry of a linked ExecutionList.
+
+Solution:
+The starting point of this search is the project root element
+
+->PROJECT->COMPLEMENT(=>SUBPARTS:RequirementSet[NodePath=="/Requirements/RS"]=>SUBPARTS:RequirementTestCaseLink->TestedBy,
+=>SUBPARTS:RequirementSet[NodePath=="/Requirements/RS"]->UnconfiguredExecutionListLinks->ExecutedBy=>SUBPARTS:ExecutionEntry->TestCase)
+=======================================================================================================================================================================
+Query for Failed Cases in EL:
+=>subparts:ExecutionEntry[ActualResult =="Failed" or ActualResult =="Error"]
+=======================================================================================================================================================================
