@@ -1,18 +1,20 @@
 20. Which of the following are Non-functional requirements?
 
-Ans: All(STREES TESTING REQUIREMENT, PORTABILITY, PERFORMANCE)
-
+Ans : All(STREES TESTING REQUIREMENT, PORTABILITY, PERFORMANCE)
+==============================================================================================================================================
 19. Defect Triage What are the goals of defect triage meetings
 
 Ans : Prioritize defects
-
+==============================================================================================================================================
 18.Which of the following statements correctly describes the difference between testing and debugging?
 
+Ans : Dynamic testing shows failures caused by defects whereas debugging finds analyze and remove causes of failure in the software.
+==============================================================================================================================================
 17. Requirement Types 
 Which of the following is the type of requirements which satisfies the needs of the customer or the consumer directly interacts with ?
 
 Ans : Functional Requirement
-
+==============================================================================================================================================
 16. Which of the following statements are TRUE?
 
 A. Regression Testing and Retesting are same
@@ -26,67 +28,79 @@ E. Regression tests should not be performed during integration testing.
 D. Regression tests are performned to uncover defects as a result of changes in the program.
 
 Ans : C and D(Regression tests are good candidates for test automation, Regression tests should not be performed during integration testing.)
-
+==============================================================================================================================================
 15.Security 
 
 Way of attempting to acquire information such as usernames, passwords, and credit card details by masquerading as a trustworthy entity in an electron Communication
 
 Ans : Phishing
-
+==============================================================================================================================================
 14. Defect tracking 
 Which of the following includes Key tasks for defect tracking ?
 
-Ans : All(ANALYSE DEFECT DATA,RETEST DEFECTS AND REPAIR OPEN DEFECTS, ADD DEFECT AND REVIEW NEW DEFECTS)
-
+Ans : All(REPAIR OPEN DEFECTS, ADD DEFECT AND REVIEW NEW DEFECTS)
+==============================================================================================================================================
 13. Which is the right answer to the following? 
 _ Tool is used to identify whether all the functional specifications are met.
 
 Ans : RTM
-
+==============================================================================================================================================
 12. Asset Sharing 
 Which is not a benefit of asset sharing?
 
 Ans : Compare Release and Cycle
-
+==============================================================================================================================================
 11.Interface Communication Which inter faces checks for proper communication between the web server and the application server, the application server and the database server, and vice Versa
 
 Ans : Server Interface
-
+==============================================================================================================================================
 10. Consistency 
 Look and feel consistency come first in which type of testing?
 
 Ans : Usability
-
+==============================================================================================================================================
 9. Which is the right answer to the following?
 When the defect introduced in one phase passes to another phase without getting caught in the phase-end verification or validation activities, it is known as
 
+Ans : Defect Leakage
+==============================================================================================================================================
 8. Which of the following gives 100% test coverage?
 
-Ans :RTM
-
+Ans : Branch Coverage
+==============================================================================================================================================
 7. Tracking Defects 
 What are the key tasks for defect tracking?
+
 Ans : All(ANALYSE DEFECT DATA,RETEST DEFECTS AND REPAIR OPEN DEFECTS, ADD DEFECT AND REVIEW NEW DEFECTS)
-
-
+==============================================================================================================================================
 6. Bug Reports 
 What is the best way to create bug reports?
 
 Ans : Single Bug in Single Report
-
+==============================================================================================================================================
 5.Which is the right answer to the following? 
-What is the severity and priority of the below defect statement? An error that occurs on the functionality of the application (for which there is no workaround) and will not allow the user to use the system. However, the link is rare. by the end user.
+What is the severity and priority of the below defect statement? 
+An error that occurs on the functionality of the application (for which there is no workaround) and will not allow the user to use the system. However, the link is rarely used by the end user.
 
+Ans : High Severity and Low Priority
+==============================================================================================================================================
 4. Which is the right answer to the following? 
 What is the dynamic process to check whether the developed product is according to customer requirements?
 
+Ans :  Validation
+
+Explanation : Validation is the process of checking whether the specification captures the customer's requirements, while verification is the process of checking that the software meets specifications. Verification includes all the activities associated with the producing high quality software.
+==============================================================================================================================================
 3. Moderator Responsibility Which of these is carried out by a trained moderator?
 
 Ans : Technical Review
-
+==============================================================================================================================================
 2. What are the major objectives of User Acceptance Testing?
 
+Ans : A, B and C(Confirm that the system meets the agreed-upon criteria, Identify and resolve discrepancies, if there are any, Determine the readiness of the system for cut-over to live operations)
+==============================================================================================================================================
 1. Version Control 
 Which of the following is feasible for version control system.
 
 Ans : All(REQUIREMENT, TEST RESOURCE, TEST PLANS AND BUSINESS MODELING)
+==============================================================================================================================================
