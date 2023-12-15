@@ -15,7 +15,17 @@ Ans : Functional Requirement
 
 16. Which of the following statements are TRUE?
 
-Options related to Regression
+A. Regression Testing and Retesting are same
+
+B. Regression tests show if all failures have been resolved.
+
+C. Regression tests are good candidates for test automation. 
+
+E. Regression tests should not be performed during integration testing. 
+
+D. Regression tests are performned to uncover defects as a result of changes in the program.
+
+Ans : C and D(Regression tests are good candidates for test automation, Regression tests should not be performed during integration testing.)
 
 15.Security 
 
