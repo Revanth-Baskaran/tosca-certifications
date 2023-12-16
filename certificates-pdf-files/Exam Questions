@@ -27,7 +27,7 @@ E. Regression tests should not be performed during integration testing.
 
 D. Regression tests are performned to uncover defects as a result of changes in the program.
 
-Ans : C and D(Regression tests are good candidates for test automation, Regression tests should not be performed during integration testing.)
+Ans : C and D(Regression tests are good candidates for test automation, Regression tests are performned to uncover defects as a result of changes in the program.)
 ==============================================================================================================================================
 15.Security 
 
